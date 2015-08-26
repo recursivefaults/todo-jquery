@@ -64,18 +64,24 @@ $(document).ready(function() {
 
   var addButtons = function(selector) {
     var lis = selector.find('ul li.todo-item');
-    if(!item.complete) {
+    var isCompleted = false;
+    if(lis.length > 0) {
+      isCompleted = lis.first().data('todo').complete;
+    }
+    if(!isCompleted) {
       lis.append($('<button />').addClass('prioritize btn').text('Shittier'));
       lis.append($('<button />').addClass('deprioritize btn').text('Less Shitty'));
     }
-    lis.append($('<button />').addClass('toggle btn').text('DONE'));
+    lis.append($('<button />').addClass('toggle btn').text('SHIT IS DONE'));
+    if(isCompleted) {
+      lis.find('button.toggle').text('SHIT AIN\'T DONE');
+    }
   };
 
   var updateSection = function(baseSelector, todoList) {
     var selector = baseSelector.find('div');
     selector.empty();
     selector.append('<ul></ul>');
-    console.log(todoList.serialize());
     todoList.serialize().forEach(function(item, index) {
       selector.find('ul').append($('<li class="todo-item" />').data('todo', item).text(item.title));
     });
